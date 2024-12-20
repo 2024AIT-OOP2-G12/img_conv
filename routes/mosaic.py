@@ -47,6 +47,10 @@ class MosaicCov:
         # 画像の高さと幅を取得
         h, w = self.image.shape[:2]
 
+        # 強度が画像サイズを超えないようにチェック
+        if self.strength >= min(w, h):
+            raise ValueError("モザイク強度が画像サイズを超えています。強度を小さくしてください。")
+
         # 縮小：画像をself.strengthの倍率で縮小
         small = cv2.resize(self.image, (w // self.strength, h // self.strength), interpolation=cv2.INTER_LINEAR)
 
@@ -78,8 +82,10 @@ if __name__=='__main__':
     # 入力画像の読み込み
     mosaic_instance.load_image()
 
-    # モザイク処理の強度を設定（任意）
-    mosaic_instance.set_strength(15)  # 強度を設定（例: 15）
+    # モザイク処理の強度を設定（入力）
+    n = input('強度: ')
+    n = int(n)
+    mosaic_instance.set_strength(n)
 
     # モザイク処理を実行
     mosaic_image = mosaic_instance.mosaic()
