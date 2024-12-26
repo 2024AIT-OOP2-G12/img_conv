@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>画像変換詳細</title>
-    <link rel="stylesheet" href="../static/style.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
-        <nav class="header">
-
-            <a href="index.html">
-                <div class="logo">📷</div>
-            </a>
-            <div class="sign">
-                <button class="button">Sign in</button>
-                <button class="button">Register</button>
-            </div>
-            
+        <div class="logo">⌘</div>
+        <nav>
+            <a >conversion</a>
+            <button class="button">Sign in</button>
+            <button class="button">Register</button>
         </nav>
     </header>
 
@@ -40,28 +36,53 @@
                 <span class="tag">Tag</span>
                 <label for="transform-method">変換方法を選択</label>
 
+
+                <!--画像変換-->
                 <form action="/change/conv" method="POST">
                 <select id="transform-method" name="selected_option">
                     <option value="">選択してください</option>
                     <!-- 他のオプションを追加 -->
                     <option value="1">ネガポジ変換</option>
+                    <option value="2">モザイク処理</option>
+                    <option value="3">ガウシアンフィルタ</option>
+                    <option value="4">二値化処理</option>
                 </select>
                 <button>変換</button>
                 </form>
+                
+                <textarea placeholder="変換の説明">{{message}}</textarea>
 
-                <textarea placeholder="変換の説明でもここにかく"></textarea>
-                <form action="/change/dwonload" method="POST">
+                <!--ダウンロード-->
+                <form action="/change/download" method="POST">
                 <button>保存</button>
                 </form>
             </div>
 
 
+        <!--のちに履歴作成する-->
         </section>
-        
-        <form action="/return" method="post">
-            <button type="submit">ホームに戻る</button>
-        </form>
-
+        <a href="/">ホームに戻る</a>
+        <section class="history">
+            <h2>履歴</h2>
+            <div class="history-grid">
+                {% if histories %}
+                {% for history in histories %}
+                <img src="data:image/png;base64,{{ history.image_data.decode('utf-8') }}" class="history-item">
+                {% endfor %}
+                {% else %}
+                <div class="history-item"></div>
+                <div class="history-item"></div>
+                {% endif %}
+            </div>
+            <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <!-- 他のページ番号 -->
+                <a href="#">&raquo;</a>
+            </div>
+        </section>
     </main>
 </body>
 </html>
