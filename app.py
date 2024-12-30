@@ -35,16 +35,19 @@ def upload():
     if file:
         filepath = os.path.join('static', 'img.png')
         file.save(filepath)
-        return redirect(url_for('change'))
+        img_name = file.filename
+
+    histories = History.select()
+    return render_template('change.html', histories = histories, img_name = img_name)
 
 
 
-#change.htmlのエンドポイント
+"""#change.htmlのエンドポイント
 @app.route('/change')
 def change():
     #Historyデータの抽出
     histories = History.select()
-    return render_template('change.html', histories = histories)
+    return render_template('change.html', histories = histories)"""
 
 
 
@@ -64,6 +67,7 @@ def conv():
         conv_message = "画像の画像内の濃淡を入れ替える変換です。画像内の明るい画素を暗い画素に、暗い画素を明るい画素に変換する処理です。"
     elif selected_value == "2":
         mosic.load_image()
+        mosic.set_strength(20)
         mosic_img = mosic.mosaic()
         mosic.save_image(mosic_img)
         conv_message = "アップロードした画像にモザイク処理を施す"
