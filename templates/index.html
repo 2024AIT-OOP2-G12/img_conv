@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Document</title>
+</head>
+
+
+
+<body>
+    <header>
+        <nav class="header">
+
+            <a href="index.html">
+                <div class="logo">📷</div>
+            </a>
+            <div class="sign">
+                <button class="button">Sign in</button>
+                <button class="button">Register</button>
+            </div>
+            
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1> 画像を変換する</h1>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" accept="image/*">
+                <br>
+                <br>
+                <button type="submit" name="submit">画像を変換</button>
+            </form>
+
+        </div>
+
+        <div class="manual">
+            <h2> 使い方 </h2>
+            <p> 1. 画像を選択してください</p>
+            <p> 2. 画像を変換ボタンを押してください</p>
+            <p> 3. 画像の変換方法を選択してください</p>
+            <p> 4. 画像が変換されます</p>
+        </div>
+
+    </main>
+
+</body>
+
+</html>
