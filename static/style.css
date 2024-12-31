@@ -1,7 +1,9 @@
+
 main {
     padding: 2rem;
     text-align: center;
 }
+
 
 body {
     font-family: 'Inter', sans-serif;
@@ -10,6 +12,7 @@ body {
     background-color: #f5f5f5;
     color: #1e1e1e;
 }
+
 
 
 .product-detail {
@@ -53,6 +56,7 @@ textarea {
     text-decoration: none;
     color: #333;
 }
+
 
 .img-origin{
     width: 50%;
@@ -157,4 +161,3 @@ input[type="file"] {
     align-items: center;
     justify-content: center;
 }
-
