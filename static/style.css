@@ -1,0 +1,163 @@
+
+main {
+    padding: 2rem;
+    text-align: center;
+}
+
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #1e1e1e;
+}
+
+
+
+.product-detail {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.image-preview {
+    width: 200px;
+    height: 200px;
+    background-color: #ddd;
+}
+
+.file-info {
+    text-align: left;
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.history-grid {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.history-item {
+    width: 100px;
+    height: 100px;
+    background-color: #ddd;
+}
+
+.pagination a {
+    margin: 0 0.5rem;
+    text-decoration: none;
+    color: #333;
+}
+
+
+.img-origin{
+    width: 50%;
+    height: 50%;
+    background-color: #ddd;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+form {
+    margin: 1rem 0;
+}
+
+input[type="file"] {
+    margin-right: 1rem;
+}
+
+.icon {
+    width: 23.3px;
+    position: relative;
+    height: 35px;
+}
+
+.menu {
+    width: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.title {
+    position: relative;
+    line-height: 100%;
+}
+.text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 120px;
+}
+
+.value {
+    flex: 1;
+    position: relative;
+    line-height: 100%;
+}
+
+.button {
+    flex: 1;
+    border-radius: 8px;
+    background-color: #e3e3e3;
+    border: 1px solid #767676;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 24px;
+}
+
+.sign{
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: right;
+    margin-left: 75%;
+    gap: 12px;
+}
+
+.manual{
+    display:flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
