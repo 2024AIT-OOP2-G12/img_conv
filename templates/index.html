@@ -9,13 +9,16 @@
 <body>
     <header>
         <nav class="header">
-            <a href = "/">
+            <a href = "{{ url_for('home', user_name = user_name) }}">
                 <div class="logo">📷</div>
             </a>
             <div class="sign">
-                <a >conversion</a>
-                <button class="button">Sign in</button>
-                <button class="button">Register</button>
+                <a href="/login">
+                    <button class="button">Sign in</button>
+                </a>
+                <a href="/register">
+                    <button class="button">Register</button>
+                </a>
             </div>
         </nav>
     </header>
