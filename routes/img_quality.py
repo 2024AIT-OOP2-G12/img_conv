@@ -44,7 +44,7 @@ def enhance_image_advanced(image_path):
     unsharp_mask = cv2.addWeighted(sharpened, 1.5, gaussian_blur, -0.5, 0)
 
     # 処理結果を保存
-    cv2.imwrite("routes/output.png", unsharp_mask)
+    cv2.imwrite("static/output.png", unsharp_mask)
 
 if __name__ == "__main__":
     input_image = "routes/img.png"
