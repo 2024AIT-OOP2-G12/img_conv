@@ -3,7 +3,7 @@ import cv2 as cv
 def gaussian():
 
     # 画像ファイルのパス
-    input_img = "static/img.jpg" 
+    input_img = "static/img.png" 
     output_img = "static/output.png"
 
     # ファイルの存在を確認
