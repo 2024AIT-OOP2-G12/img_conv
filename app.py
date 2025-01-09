@@ -3,6 +3,7 @@ from routes.negaposi import negaposi
 from routes.mosaic import MosaicCov
 from routes.Gaussian import gaussian
 from routes.Thresholding import thresholding
+from routes.edge_detection import edge_detection
 import os
 from models import initialize_database, History
 import base64
