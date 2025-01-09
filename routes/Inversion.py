@@ -4,7 +4,7 @@ import os
 def inversion():
 
     # 画像ファイルのパス
-    input_img = "static/img.jpg"
+    input_img = "static/img.png"
     output_img = "static/output.png"
 
     # ファイルの存在を確認
