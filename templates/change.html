@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,12 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <header>
         <nav class="header">
             <a href = "{{ url_for('home', user_name = user_name) }}">
+
                 <div class="logo">📷</div>
             </a>
             <div class="sign">
@@ -26,7 +29,7 @@
 
     <main>
         <div class="history-grid">
-            <img src = "{{ url_for('static', filename = 'img.png')}}" class="img-origin">
+            <img src="{{ url_for('static', filename = 'img.png')}}" class="img-origin">
         </div>
         <section class="product-detail">
 
@@ -46,27 +49,46 @@
 
                 <!--画像変換-->
                 <form action="/change/conv" method="POST">
-                <select id="transform-method" name="selected_option">
-                    <option value="">選択してください</option>
-                    <!-- 他のオプションを追加 -->
-                    <option value="1">ネガポジ変換</option>
-                    <option value="2">モザイク処理</option>
-                    <option value="3">ガウシアンフィルタ</option>
-                    <option value="4">二値化処理</option>
-                </select>
-                <button>変換</button>
+                    <select id="transform-method" name="selected_option">
+                        <option value="">選択してください</option>
+                        <!-- 他のオプションを追加 -->
+                        <option value="1">ネガポジ変換</option>
+                        <option value="2">モザイク処理</option>
+                        <option value="3">ガウシアンフィルタ</option>
+                        <option value="4">二値化処理</option>
+                    </select>
+                    <!-- モザイク強度入力 -->
+                    <div id="mosaic-strength-container" style="display: none;">
+                        <label for="mosaic-strength">モザイク強度</label>
+                        <input type="number" id="mosaic-strength" name="mosaic_strength" min="1" value="10" required>
+                    </div>
+                    <button>変換</button>
                 </form>
-                
+
+                <script>
+                    // モザイク処理選択時に強度入力フィールドを表示
+                    const transformMethod = document.getElementById('transform-method');
+                    const mosaicStrengthContainer = document.getElementById('mosaic-strength-container');
+
+                    transformMethod.addEventListener('change', function () {
+                        if (transformMethod.value === '2') {
+                            mosaicStrengthContainer.style.display = 'block';
+                        } else {
+                            mosaicStrengthContainer.style.display = 'none';
+                        }
+                    });
+                </script>
+
                 <textarea placeholder="変換の説明">{{message}}</textarea>
 
                 <!--ダウンロード-->
                 <form action="/change/download" method="POST">
-                <button>保存</button>
+                    <button>保存</button>
                 </form>
             </div>
 
 
-        <!--のちに履歴作成する-->
+            <!--のちに履歴作成する-->
         </section>
         <a href="{{ url_for('home', user_name = user_name) }}">ホームに戻る</a>
         <section class="history">
@@ -92,4 +114,5 @@
         </section>
     </main>
 </body>
+
 </html>
