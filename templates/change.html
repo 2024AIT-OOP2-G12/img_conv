@@ -12,12 +12,17 @@
 <body>
     <header>
         <nav class="header">
-            <a href="/">
+            <a href = "{{ url_for('home', user_name = user_name) }}">
+
                 <div class="logo">📷</div>
             </a>
             <div class="sign">
-                <button class="button">Sign in</button>
-                <button class="button">Register</button>
+                <a href="/login">
+                    <button class="button">Sign in</button>
+                </a>
+                <a href="register">
+                    <button class="button">Register</button>
+                </a>
             </div>
         </nav>
     </header>
@@ -85,7 +90,7 @@
 
             <!--のちに履歴作成する-->
         </section>
-        <a href="/">ホームに戻る</a>
+        <a href="{{ url_for('home', user_name = user_name) }}">ホームに戻る</a>
         <section class="history">
             <h2>履歴</h2>
             <div class="history-grid">

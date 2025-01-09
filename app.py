@@ -1,64 +1,114 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, redirect, url_for, send_file, session
+from werkzeug.security import generate_password_hash, check_password_hash
 from routes.negaposi import negaposi
 from routes.mosaic import MosaicCov
 from routes.Gaussian import gaussian
 from routes.Thresholding import thresholding
+from routes.edge_detection import edge_detection
 import os
-from models import initialize_database, History
+from models import initialize_database, History, User
 import base64
 import datetime
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
 # データベースの初期化
 initialize_database()
 
-#デフォルトページ
+#デフォルトページ------------------------------------------------------------------------------------------------------
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
+
+#ホーム画面------------------------------------------------------------------------------------------------------
+@app.route('/index/<user_name>')
+def home(user_name):
+    return render_template('index.html', user_name = user_name)
+
+#ログイン用------------------------------------------------------------------------------------------------------
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # データベースからユーザーを取得
+        user = User.get_or_none(User.username == username)
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id#id取得
+            session['user_name'] = user.username#URLにユーザー名を表示させたいため取得
+            print(f"user_id = {session['user_id']}")#確認用
+            print(f"user_name = {session['user_name']}")#確認用
+            #return render_template('index.html')
+            return redirect(url_for('home', user_name = session['user_name']))
+        else:
+            return render_template('login.html')
+    return render_template('login.html')
+
+
+#ログアウト用------------------------------------------------------------------------------------------------------
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('login'))
+
+
+# ユーザー登録用------------------------------------------------------------------------------------------------------
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # ユーザーがすでに存在するか確認
+        if User.get_or_none(User.username == username):
+            return redirect(url_for('register'))
+
+        # 新しいユーザーを作成
+        hashed_password = generate_password_hash(password)
+        User.create(username=username, password=hashed_password)
+        return redirect(url_for('login'))
+
+    return render_template('register.html')
 
 
 
-#ボタンを押して画像をstatic内に保存されるようにする
+#ボタンを押して画像をstatic内に保存されるようにする------------------------------------------------------------------------------------------------------
 @app.route('/upload', methods=['POST'])
 def upload():
     # ファイルがアップロードされたか確認(本当はアラートを出したいがjsを使わなければならないので、時間が余ったら実装する)
     if 'file' not in request.files:
         return 'ファイルが選択されていません。', 400
     
-    #ファイル名があるかどうかの確認(ファイル選択されるinputタグの名前はfileなので'file')
     file = request.files['file']
     if file.filename == '':
         return 'ファイルが選択されていません。', 400
     
-    #ファイルが存在する場合、staticにimg.pngとして保存する
     if file:
         filepath = os.path.join('static', 'img.png')
         file.save(filepath)
-        img_name = file.filename
-
-    histories = History.select()
-    return render_template('change.html', histories = histories, img_name = img_name)
+        return redirect(url_for('change', user_name = session['user_name']))
 
 
 
-"""#change.htmlのエンドポイント
-@app.route('/change')
-def change():
+#change.htmlのエンドポイント------------------------------------------------------------------------------------------------------
+@app.route('/change/<user_name>')
+def change(user_name):
     #Historyデータの抽出
-    histories = History.select()
-    return render_template('change.html', histories = histories)"""
+    user_id = session['user_id']
+    user = User.get_by_id(user_id)
+    histories = History.select().where(History.user == user)
+    return render_template('change.html', histories = histories, user_name = user_name)
 
 
 
-#画像変換ようのエンドポイント
+#画像変換ようのエンドポイント------------------------------------------------------------------------------------------------------
 @app.route('/change/conv',  methods=['POST'])
 def conv():
     #変換用モジュールのインスタンス化
     nega = negaposi()
     mosic = MosaicCov()
     # `select` タグで選択された値を取得
-    #それぞれの画像処置を施す
     selected_value = request.form.get('selected_option')
     if selected_value=="":
         return '変換方法を選択してください', 400
@@ -90,20 +140,27 @@ def conv():
     with open(output_path, "rb") as output_file:
         encord_img_data = base64.b64encode(output_file.read())
 
+    # 現在のログインユーザーを取得
+    user_id = session['user_id']
+    user = User.get_by_id(user_id)
+    print(f"user={user}")
+
     #Historyデータベースにエンコードした画像データと変換日時を代入する
     History.create(
+        user = user,
         times = datetime.datetime.now(),
         image_data = encord_img_data
     )
 
     #Historyデータの抽出
-    histories = History.select()
-    
-    return render_template('change.html', file_exists=file_exists, message=conv_message, histories = histories)
+    #histories = History.select()
+    histories = History.select().where(History.user == user)
+    print(f"his={histories}")
+    return render_template('change.html', file_exists=file_exists, message=conv_message, histories = histories, user_name = session['user_name'])
     
 
 
-#変換画像ダウンロードようのエンドポイント
+#変換画像ダウンロードようのエンドポイント------------------------------------------------------------------------------------------------------
 @app.route('/change/download', methods=['POST'])
 def download():
     output_path = os.path.join('static', 'output.png')
