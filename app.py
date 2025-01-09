@@ -7,6 +7,7 @@ from routes.Thresholding import thresholding
 from routes.edge_detection import edge_detection
 from routes.img_quality import enhance_image_advanced
 from routes.Inversion import inversion
+from routes.convert2crayon_style import convert_to_crayon_style
 import os
 from models import initialize_database, History, User
 import base64
@@ -144,6 +145,9 @@ def conv():
     elif selected_value == "7":
         inversion()
         conv_message = "アップロードした画像に左右反転を施す"
+    elif selected_value == "8":
+        convert_to_crayon_style(input_file_name, output_file_name)
+        conv_message = "アップロードした画像をクレヨン風な画像に変換する"
 
     #change.html内で変換された画像とメッセージが表示されるようにする
     output_path = os.path.join('static', 'output.png')
