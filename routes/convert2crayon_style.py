@@ -73,4 +73,4 @@ def convert_to_crayon_style(image_path, output_path):
 if __name__ == "__main__":
     input_path = "routes/img.png"
     output_path = "static/output.png"
-    convert_to_anime_advanced(input_path, output_path)
+    convert_to_crayon_style(input_path, output_path)
