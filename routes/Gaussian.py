@@ -6,6 +6,10 @@ def gaussian():
     input_img = "static/img.jpg" 
     output_img = "static/output.png"
 
+    # ファイルの存在を確認
+    if not os.path.exists(input_img):
+        return
+
     # 画像を読み込み
     img = cv.imread(input_img)
 
