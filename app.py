@@ -6,6 +6,7 @@ from routes.Gaussian import gaussian
 from routes.Thresholding import thresholding
 from routes.edge_detection import edge_detection
 from routes.img_quality import enhance_image_advanced
+from routes.Inversion import inversion
 import os
 from models import initialize_database, History, User
 import base64
@@ -136,6 +137,9 @@ def conv():
     elif selected_value == "6":
         enhance_image_advanced(input_file_name)
         conv_message = "アップロードされた画像に色彩処理を施す"
+    elif selected_value == "7":
+        inversion()
+        conv_message = "アップロードした画像に左右反転を施す"
 
     #change.html内で変換された画像とメッセージが表示されるようにする
     output_path = os.path.join('static', 'output.png')
