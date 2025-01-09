@@ -66,8 +66,12 @@ def conv():
         nega.negaposi_ms()
         conv_message = "画像の画像内の濃淡を入れ替える変換です。画像内の明るい画素を暗い画素に、暗い画素を明るい画素に変換する処理です。"
     elif selected_value == "2":
+        # モザイク処理の強度取得
+        mosaic_strength = request.form.get('mosaic_strength', type=int)
+        if mosaic_strength is None or mosaic_strength < 1:
+            return "モザイクの強度は1以上にしてください。", 400
         mosic.load_image()
-        mosic.set_strength(20)
+        mosic.set_strength(mosaic_strength)
         mosic_img = mosic.mosaic()
         mosic.save_image(mosic_img)
         conv_message = "アップロードした画像にモザイク処理を施す"
