@@ -19,7 +19,5 @@ class negaposi():
 
 if __name__ == '__main__':
     negaposi_x = negaposi()
-    cv2.imshow('shougun', negaposi_x.negaposi_ms())
+    cv2.imshow('negaposi', negaposi_x.negaposi_ms())
     cv2.waitKey(0)
-
-       
