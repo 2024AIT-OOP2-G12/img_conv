@@ -12,7 +12,7 @@
 <body>
     <header>
         <nav class="header">
-            <a href = "{{ url_for('home', user_name = user_name) }}">
+            <a href="{{ url_for('home', user_name = user_name) }}">
 
                 <div class="logo">📷</div>
             </a>
@@ -47,36 +47,82 @@
                 <!--画像変換-->
                 <form action="/change/conv" method="POST">
 
-                <select id="transform-method" name="selected_option">
-                    <option value="">選択してください</option>
-                    <!-- 他のオプションを追加 -->
-                    <option value="1">ネガポジ変換</option>
-                    <option value="2">モザイク処理</option>
-                    <option value="3">ガウシアンフィルタ</option>
-                    <option value="4">二値化処理</option>
-                    <option value="5">エッジ処理</option>
-                    <option value="6">色彩処理</option>
-                    <option value="7">左右反転処理</option>
-                </select>
-                <!-- モザイク強度入力 -->
+                    <select id="transform-method" name="selected_option">
+                        <option value="">選択してください</option>
+                        <!-- 他のオプションを追加 -->
+                        <option value="1">ネガポジ変換</option>
+                        <option value="2">モザイク処理</option>
+                        <option value="3">ガウシアンフィルタ</option>
+                        <option value="4">二値化処理</option>
+                        <option value="5">エッジ処理</option>
+                        <option value="6">色彩処理</option>
+                        <option value="7">左右反転処理</option>
+                        <option value="8">スタンプ処理</option>
+                    </select>
+                    <!-- モザイク強度入力 -->
                     <div id="mosaic-strength-container" style="display: none;">
                         <label for="mosaic-strength">モザイク強度</label>
                         <input type="number" id="mosaic-strength" name="mosaic_strength" min="1" value="10" required>
                     </div>
-                <button>変換</button>
+                    <!-- スタンプの設定入力 -->
+                    <div id="stamp-options" style="display: none;">
+                        <label for="stamp-choice">スタンプ種類:</label>
+                        <select id="stamp-choice" name="stamp_choice">
+                            <option value="">選択してください</option>
+                            <option value="stamp1">ロケット</option>
+                            <option value="stamp2">ふうせん</option>
+                            <option value="stamp3">ほし</option>
+                        </select>
+
+                        <label for="stamp-strength">スタンプの大きさ:</label>
+                        <input type="number" id="stamp-strength" name="stamp_strength" value="100" required>
+
+                        <label for="stamp-x">X座標:</label>
+                        <input type="number" id="stamp-x" name="stamp_x" value="50" required>
+
+                        <label for="stamp-y">Y座標:</label>
+                        <input type="number" id="stamp-y" name="stamp_y" value="50" required>
+                    </div>
+
+                    <button>変換</button>
 
                 </form>
 
                 <script>
-                    // モザイク処理選択時に強度入力フィールドを表示
+                    // 入力フィールドの表示
                     const transformMethod = document.getElementById('transform-method');
                     const mosaicStrengthContainer = document.getElementById('mosaic-strength-container');
+                    const stampOptions = document.getElementById('stamp-options');
 
                     transformMethod.addEventListener('change', function () {
                         if (transformMethod.value === '2') {
                             mosaicStrengthContainer.style.display = 'block';
+                            stampOptions.style.display = 'none';
+                        } else if (transformMethod.value === '8') {
+                            stampOptions.style.display = 'block';
+                            mosaicStrengthContainer.style.display = 'none';
                         } else {
                             mosaicStrengthContainer.style.display = 'none';
+                            stampOptions.style.display = 'none';
+                        }
+                    });
+
+                    // 入力検証とアラート表示
+                    const transformForm = document.querySelector('form[action="/change/conv"]');
+                    transformForm.addEventListener('submit', function (event) {
+                        const selectedValue = document.getElementById('transform-method').value;
+
+                        if (selectedValue === '') {
+                            alert('変換方法を選択してください');
+                            event.preventDefault(); // フォーム送信を中止
+                        }
+
+                        const stampChoiceValue = document.getElementById('stamp-choice').value;
+
+                        // スタンプ選択時のみチェック
+                        if (selectedValue === '8' && stampChoiceValue === '') {
+                            alert('スタンプを選択してください');
+                            event.preventDefault();
                         }
                     });
                 </script>
