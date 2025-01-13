@@ -145,7 +145,7 @@ def conv():
     elif selected_value == "7":
         inversion()
         conv_message = "アップロードした画像に左右反転を施す"
-    elif selected_value == "8":
+    elif selected_value == "9":
         convert_to_crayon_style(input_file_name, output_file_name)
         conv_message = "アップロードした画像をクレヨン風な画像に変換する"
 
