@@ -8,6 +8,7 @@ from routes.edge_detection import edge_detection
 from routes.img_quality import enhance_image_advanced
 from routes.Inversion import inversion
 from routes.stamp import stamp
+from routes.convert2crayon_style import convert_to_crayon_style
 import os
 from models import initialize_database, History, User
 import base64
@@ -170,6 +171,9 @@ def conv():
         stamp_instance.paste_stamp(x, y)
         stamp_instance.save_image()
         conv_message = "アップロードした画像にスタンプを施す"
+    elif selected_value == "9":
+        convert_to_crayon_style(input_file_name, output_file_name)
+        conv_message = "アップロードした画像をクレヨン風な画像に変換する"
 
     #change.html内で変換された画像とメッセージが表示されるようにする
     output_path = os.path.join('static', 'output.png')
