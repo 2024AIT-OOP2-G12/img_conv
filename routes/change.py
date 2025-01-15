@@ -10,6 +10,9 @@ from routes.Inversion import inversion
 from models import History, User
 import base64
 import datetime
+from routes.convert2crayon_style import convert_to_crayon_style
+from routes.stamp import stamp
+
 
 # Blueprintの作成
 change_bp = Blueprint('change', __name__, url_prefix='/change')
@@ -48,12 +51,12 @@ def change(user_name):
 #画像変換ようのエンドポイント------------------------------------------------------------------------------------------------------
 @change_bp.route('/conv',  methods=['POST'])
 def conv():
-    #変換用モジュールのインスタンス化
+     #変換用モジュールのインスタンス化
     nega = negaposi()
     mosic = MosaicCov()
+    stamp_instance = stamp()
     input_file_name = "static/img.png"
     output_file_name = "static/output.png"
-    conv_message = ""  # デフォルト値を設定
     # `select` タグで選択された値を取得
     selected_value = request.form.get('selected_option')
     if selected_value=="":
@@ -86,6 +89,19 @@ def conv():
     elif selected_value == "7":
         inversion()
         conv_message = "アップロードした画像に左右反転を施す"
+    elif selected_value == "8":
+        stamp_instance.load_images()
+        stamp_choice = request.form.get('stamp_choice', type=str)
+        x = request.form.get('stamp_x', type=int)
+        y = request.form.get('stamp_y', type=int)
+        stamp_instance.set_stamp_type(stamp_choice)
+        stamp_instance.resize_stamp()
+        stamp_instance.paste_stamp(x, y)
+        stamp_instance.save_image()
+        conv_message = "アップロードした画像にスタンプを施す"
+    elif selected_value == "9":
+        convert_to_crayon_style(input_file_name, output_file_name)
+        conv_message = "アップロードした画像をクレヨン風な画像に変換する"
 
     #change.html内で変換された画像とメッセージが表示されるようにする
     output_path = os.path.join('static', 'output.png')
@@ -118,6 +134,21 @@ def conv():
                            page=1,
                            total_pages=(History.select().where(History.user == user).count() // 10) + 1)
 
+#スタンプ画像用のエンドポイント------------------------------------------------------------------------------------------------------
+@change_bp.route('/upload_stamp', methods=['POST'])
+def upload_stamp():
+    if 'file' not in request.files:
+        return 'スタンプ画像が選択されていません。', 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return 'スタンプ画像が選択されていません。', 400
+
+    if file:
+        filepath = os.path.join('static', f'{file.filename}')
+        file.save(filepath)
+
+    return redirect(url_for('index'))
 
 #変換画像ダウンロード用のエンドポイント------------------------------------------------------------------------------------------------------
 @change_bp.route('/download', methods=['POST'])
