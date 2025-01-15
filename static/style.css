@@ -161,24 +161,6 @@ input[type="file"] {
     font-size: 1rem;
 }
 
-.button {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #3b5998;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.button:hover {
-    background-color: #2a4272;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -293,4 +275,78 @@ a.home-link:hover {
     border-radius: 8px;
     object-fit: contain;
 }
+.comparison-container p {
+    font-size: 1rem;
+    color: #3b5998;
+    padding: 1rem;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+th, td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #3b5998;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #d32f2f;
+}
+
+.download-form{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+label {
+    font-weight: bold;
+    color: #3b5998;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.message {
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid #3b5998;
+    background-color: #e9f0fb;
+    color: #3b5998;
+    border-radius: 4px;
+    text-align: center;
+}
+
 
