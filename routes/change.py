@@ -12,6 +12,8 @@ import base64
 import datetime
 from routes.convert2crayon_style import convert_to_crayon_style
 from routes.stamp import stamp
+from routes.add_noise import add_noise
+from routes.heatmap import heatmap
 
 
 # Blueprintの作成
@@ -102,6 +104,12 @@ def conv():
     elif selected_value == "9":
         convert_to_crayon_style(input_file_name, output_file_name)
         conv_message = "アップロードした画像をクレヨン風な画像に変換する"
+    elif selected_value == "10":
+        add_noise()
+        conv_message = "アップロードした画像にノイズを加える"
+    elif selected_value == "11":
+        heatmap()
+        conv_message = "アップロードした画像をサーモグラフィ風の画像に変換する"
 
     #change.html内で変換された画像とメッセージが表示されるようにする
     output_path = os.path.join('static', 'output.png')
