@@ -12,12 +12,12 @@
 <body>
     <header>
         <nav class="header">
-            <a href="{{ url_for('home', user_name = user_name) }}">
+            <a href="{{ url_for('login.index', user_name = user_name) }}">
 
                 <div class="logo">📷</div>
             </a>
             <div class="sign">
-                <a href="/logout">
+                <a href="{{ url_for('login.logout') }}">
                     <button class="button">Logout</button>
                 </a>
             </div>
@@ -25,22 +25,26 @@
     </header>
 
     <main>
-        <div class="history-grid">
-            <img src="{{ url_for('static', filename = 'img.png')}}" class="img-origin">
+        <div class="comparison-container">
+            
+            <div class="comparison-item">
+                <p>変換前</p>
+                <img src="{{ url_for('static', filename = 'img.png')}}" class="comparison-img">
+            </div>
+            <div class="comparison-item">
+
+                {% if file_exists %}
+                <p>変換後</p>
+                <img src="{{ url_for('static', filename = 'output.png')}}" class="comparison-img">
+                {% endif %}
+            </div>
         </div>
         <section class="product-detail">
 
 
-            <div class="image-preview">
-                {% if file_exists %}
-                <img src="{{ url_for('static', filename = 'output.png')}}" class="image-preview">
-                {% endif %}
-            </div>
-
 
             <div class="file-info">
                 <p>{{ img_name }}</p>
-                <span class="tag">Tag</span>
                 <label for="transform-method">変換方法を選択</label>
 
 
@@ -129,8 +133,13 @@
                     });
                 </script>
 
-                <textarea placeholder="変換の説明">{{message}}</textarea>
-
+                
+                <!-- メッセージ表示 -->
+                {% if message %}
+                <div class="message">
+                    <p>{{ message }}</p>
+                </div>
+                {% endif %}
                 <!--ダウンロード-->
                 <form action="/change/download" method="POST">
                     <button>保存</button>
@@ -140,7 +149,6 @@
 
             <!--のちに履歴作成する-->
         </section>
-        <a href="{{ url_for('home', user_name = user_name) }}">ホームに戻る</a>
         <section class="history">
             <h2>履歴</h2>
             <div class="history-grid">
@@ -153,16 +161,24 @@
                 <div class="history-item"></div>
                 {% endif %}
             </div>
+            <!-- ページネーション -->
             <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <!-- 他のページ番号 -->
-                <a href="#">&raquo;</a>
+                <!-- 前へボタン -->
+                {% if page > 1 %}
+                <a href="{{ url_for('change.change', user_name=user_name, page=page-1) }}">&laquo; 前へ</a>
+                {% endif %}
+                <!-- ページ番号 -->
+                {% for p in range(1, total_pages + 1) %}
+                <a href="{{ url_for('change.change', user_name=user_name, page=p) }}" {% if p == page %}class="active"{% endif %}>{{ p }}</a>
+                {% endfor %}
+                <!-- 次へボタン -->
+                {% if total_pages > page %}
+                <a href="{{ url_for('change.change', user_name=user_name, page=page+1) }}">次へ &raquo;</a>
+                {% endif %}
             </div>
         </section>
     </main>
+    <a href="{{ url_for('login.index', user_name = user_name) }}" class="home-link">ホームに戻る</a>
 </body>
 
 </html>
