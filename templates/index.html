@@ -9,11 +9,11 @@
 <body>
     <header>
         <nav class="header">
-            <a href = "{{ url_for('home', user_name = user_name) }}">
+            <a href = "{{ url_for('login.index', user_name = user_name) }}">
                 <div class="logo">📷</div>
             </a>
             <div class="sign">
-                <a href="/logout">
+                <a href="{{ url_for('login.logout') }}">
                     <button class="button">Logout</button>
                 </a>
             </div>
@@ -22,7 +22,7 @@
     <main>
         <div class="container">
             <h1> 画像を変換する</h1>
-            <form action="/upload" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('change.upload') }}" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" id="file" accept="image/*">
                 <br>
                 <br>
