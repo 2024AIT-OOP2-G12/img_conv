@@ -48,12 +48,16 @@ def register():
 
         # ユーザーがすでに存在するか確認
         if User.get_or_none(User.username == username):
-            return redirect(url_for('register'))
+            return redirect(url_for('login.register'))
 
         # 新しいユーザーを作成
         hashed_password = generate_password_hash(password)
         User.create(username=username, password=hashed_password)
-        return redirect(url_for('login.login'))
+        
+        # 新規登録後にホーム画面にリダイレクト
+        session['user_id'] = User.get(User.username == username).id
+        session['user_name'] = username
+        return redirect(url_for('login.index', user_name=session['user_name']))
 
     return render_template('register.html')
 
