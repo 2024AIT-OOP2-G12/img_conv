@@ -9,8 +9,8 @@
 <body>
     <header>
         <nav class="header">
-            <a href = "{{ url_for('login.index', user_name = user_name) }}">
-                <div class="logo">📷</div>
+            <a href="{{ url_for('login.index', user_name=user_name) }}">
+                <div class="logo">画像変換アプリ</div>
             </a>
             <div class="sign">
                 <a href="{{ url_for('login.logout') }}">

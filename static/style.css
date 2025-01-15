@@ -2,13 +2,13 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
-    color: #1e1e1e;
+    background-color: #f0f0f0;
+    color: #333;
     line-height: 1.6;
 }
 
 header {
-    background-color: #4CAF50;
+    background-color: #3b5998;
     padding: 0.5rem 1rem;
     color: white;
     display: flex;
@@ -19,10 +19,12 @@ header {
 }
 
 .logo {
-    font-size: 2rem;
-    margin: 0;
-    cursor: pointer;
+    font-size: 1.5rem;
     font-weight: bold;
+    text-decoration: none;
+    color: white; 
+    text-align: center;
+    text-wrap: nowrap;
 }
 
 .product-detail {
@@ -71,12 +73,12 @@ textarea {
 .pagination a {
     margin: 0 0.5rem;
     text-decoration: none;
-    color: #333;
+    color: #3b5998;
     font-weight: bold;
 }
 
 .pagination a.active {
-    color: #4CAF50;
+    color: #3b5998;
     pointer-events: none;
 }
 
@@ -87,7 +89,7 @@ textarea {
 h1 {
     font-size: 2rem;
     margin-bottom: 2rem;
-    color: #333;
+    color: #3b5998;
 }
 
 form {
@@ -95,7 +97,7 @@ form {
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fafafa;
+    background-color: #fff;
 }
 
 input[type="file"] {
@@ -162,7 +164,7 @@ input[type="file"] {
 .button {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background-color: #4CAF50;
+    background-color: #3b5998;
     color: white;
     border: none;
     border-radius: 4px;
@@ -173,7 +175,7 @@ input[type="file"] {
 }
 
 .button:hover {
-    background-color: #4553a0;
+    background-color: #2a4272;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -212,7 +214,7 @@ input[type="file"] {
 .manual h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #4CAF50;
+    color: #3b5998;
 }
 
 .logout-button {
@@ -239,7 +241,7 @@ a.home-link {
     bottom: 20px;
     right: 20px;
     padding: 0.5rem 1rem;
-    background-color: #4CAF50;
+    background-color: #3b5998;
     color: white;
     border: none;
     border-radius: 4px;
@@ -250,7 +252,7 @@ a.home-link {
 }
 
 a.home-link:hover {
-    background-color: #4553a0;
+    background-color: #2a4272;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -267,7 +269,7 @@ a.home-link:hover {
 .history h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #4CAF50;
+    color: #3b5998;
 }
 
 .comparison-container {
