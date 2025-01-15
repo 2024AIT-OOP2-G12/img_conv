@@ -2,19 +2,23 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>新規登録</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="label-bordered">新規登録</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
-<body>
+<body class="center register_background">
+    <div class="handwriting-border">
     <h1>新規登録</h1>
-    <form action="{{ url_for('login.register') }}" method="POST">
-        <label for="username">ユーザー名:</label>
-        <input type="text" id="username" name="username" required>
+    <form action="/register" method="POST">
+        <label for="username" class="label-large">ユーザー名:</label>
+        <input class="input-button" type="text" id="username" name="username" required>
         <br>
-        <label for="password">パスワード:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="password" class="label-large">パスワード:</label>
+        <input class="input-button form-group" type="password" id="password" name="password" required>
         <br>
-        <button type="submit">登録</button>
+        <button type="submit" class="login-button">登録</button>
     </form>
-    <p>既にアカウントをお持ちの方は<a href="{{ url_for('login.login') }}">こちら</a></p>
+    <p>既にアカウントをお持ちの方は<a href="/login">こちら</a></p>
+</div>
 </body>
 </html>

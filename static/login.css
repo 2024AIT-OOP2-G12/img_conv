@@ -5,29 +5,29 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* 垂直方向に配置 */
-    margin: 0; /* 不要な余白を削除 */
+    flex-direction: column; 
+    margin: 0; 
 }
 
 .handwriting-border {
-    border: 8px solid black; /* 枠線の太さと色 */
-    padding: 20px;           /* 内側の余白 */
-    border-radius: 30px;     /* 手書き感のため角を丸める */
-    box-shadow: 2px 2px 0 black, -2px -2px 0 black; /* 手書き感の影効果 */
-    display: inline-block;   /* 内容に合わせてサイズを調整 */
-    font-family: 'Comic Sans MS', cursive; /* 手書き風フォントを追加（任意） */
-    background: #FFFFFF;/*背景色*/
+    border: 8px solid black; 
+    padding: 20px;           
+    border-radius: 30px;     
+    box-shadow: 2px 2px 0 black, -2px -2px 0 black; 
+    display: inline-block;   
+    font-family: 'Comic Sans MS', cursive; 
+    background: #FFFFFF;
 }
 
 
 .center {
-    text-align: center;      /* テキストを水平方向で中央揃え */
-    font-size: 2em; /* フォントサイズを大きくする */
+    text-align: center;      
+    font-size: 2em; /
 }
 
 .label-large {
-    font-weight: bold; /* 太字にする（任意） */
-    color: #333; /* 色を濃くする（任意） */
+    font-weight: bold; 
+    color: #333; 
 }
 
 .input-button {
@@ -40,13 +40,16 @@ body {
 }
 
 .label-bordered {
-    border: 4px solid #666; /* 枠線（太さ、種類、色） */
-    padding: 5px;        /* 枠線内の余白 */
-    border-radius: 5px;  /* 角を丸める */
-    display: inline-block; /* サイズを自動調整 */
+    border: 4px solid #666; 
+    padding: 5px;       
+    border-radius: 5px;  
+    display: inline-block; 
 }
 
 .form-group {
-    margin-bottom: 20px; /* パスワード入力欄とログインボタンの間に余白を追加 */
+    margin-bottom: 20px;
 }
   
+.register_background {
+    background: linear-gradient(45deg, #696969, #d3d3d3); 
+}
