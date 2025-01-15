@@ -4,20 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>画像変換アプリ</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <header>
         <nav class="header">
-            <a href = "{{ url_for('home', user_name = user_name) }}">
+            <a href = "{{ url_for('login.index', user_name = user_name) }}">
                 <div class="logo">📷</div>
             </a>
             <div class="sign">
-                <a href="/login">
-                    <button class="button">Sign in</button>
-                </a>
-                <a href="/register">
-                    <button class="button">Register</button>
+                <a href="{{ url_for('login.logout') }}">
+                    <button class="button">Logout</button>
                 </a>
             </div>
         </nav>
@@ -25,7 +22,7 @@
     <main>
         <div class="container">
             <h1> 画像を変換する</h1>
-            <form action="/upload" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('change.upload') }}" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" id="file" accept="image/*">
                 <br>
                 <br>

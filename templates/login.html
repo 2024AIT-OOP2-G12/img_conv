@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>ログイン</h1>
-    <form action="/login" method="POST">
+    <form action="{{ url_for('login.login') }}" method="POST">
         <label for="username">ユーザー名:</label>
         <input type="text" id="username" name="username" required>
         <br>
@@ -15,6 +15,6 @@
         <br>
         <button type="submit">ログイン</button>
     </form>
-    <p>新規登録は<a href="/register">こちら</a></p>
+    <p>新規登録は<a href="{{ url_for('login.register') }}">こちら</a></p>
 </body>
 </html>
