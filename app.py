@@ -15,7 +15,10 @@ for blueprint in blueprints:
 #デフォルトページ
 @app.route('/')
 def index():
-    return render_template('users/login.html')
+
+    return render_template('login.html')
+
+
 
 
 #user管理画面------------------------------------------------------------------------------------------------------
