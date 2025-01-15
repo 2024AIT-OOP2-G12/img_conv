@@ -17,14 +17,9 @@ for blueprint in blueprints:
 def index():
     return render_template('login.html')
 
-@app.route('/register')  
+@app.route('/register')
 def register():
-    return render_template('register.html') 
-
-@app.route('/login')  
-def backlogin():
-    return render_template('login.html') 
-
+    return render_template('register.html')
 
 #user管理画面------------------------------------------------------------------------------------------------------
 @app.route('/user', methods=['GET'])
