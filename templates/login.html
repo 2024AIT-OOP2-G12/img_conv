@@ -11,8 +11,8 @@
     <h1>ログイン</h1>
 
     <form action="{{ url_for('login.login') }}" method="POST">
-        <label for="username">ユーザー名:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="username" class="label-large" >ユーザー名:</label>
+        <input class="input-button" type="text" id="username" name="username" required>
 
         <br>
         <label for="password" class="label-large">パスワード:</label>
