@@ -9,7 +9,7 @@
 <body class="center register_background">
     <div class="handwriting-border">
     <h1>新規登録</h1>
-    <form action="/register" method="POST">
+    <form action="{{ url_for('login.register') }}" method="POST">
         <label for="username" class="label-large">ユーザー名:</label>
         <input class="input-button" type="text" id="username" name="username" required>
         <br>
@@ -18,7 +18,7 @@
         <br>
         <button type="submit" class="login-button">登録</button>
     </form>
-    <p>既にアカウントをお持ちの方は<a href="{{ url_for('index') }}">こちら</a></p>
+    <p>既にアカウントをお持ちの方は<a href="{{ url_for('login.login') }}">こちら</a></p>
 </div>
 </body>
 </html>
