@@ -50,7 +50,6 @@
 
                 <!--画像変換-->
                 <form action="/change/conv" method="POST">
-
                     <select id="transform-method" name="selected_option">
                         <option value="">選択してください</option>
                         <!-- 他のオプションを追加 -->
@@ -140,8 +139,10 @@
                     <p>{{ message }}</p>
                 </div>
                 {% endif %}
+            
+                
                 <!--ダウンロード-->
-                <form action="/change/download" method="POST">
+                <form action="/change/download" class="download-form" method="POST">
                     <button>保存</button>
                 </form>
             </div>
