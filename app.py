@@ -15,7 +15,7 @@ for blueprint in blueprints:
 #デフォルトページ
 @app.route('/')
 def index():
-    return render_template('users/login.html')
+    return render_template('login.html')
 
 
 #user管理画面------------------------------------------------------------------------------------------------------
@@ -24,11 +24,6 @@ def user():
     users = User.select()
     return render_template('user_manage.html', users=users)
 
-# 画像表示ページ
-@app.route('/images')
-def display_images():
-    images = History.select()
-    return render_template('img_sns.html', images=images)
 
 if __name__ == '__main__':
     app.run(debug=True,port=8080)

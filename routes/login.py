@@ -22,8 +22,8 @@ def login():
             #return render_template('index.html')
             return redirect(url_for('login.index', user_name = session['user_name']))
         else:
-            return render_template('users/login.html')
-    return render_template('users/login.html')
+            return render_template('login.html')
+    return render_template('login.html')
 
 
 #ホーム画面------------------------------------------------------------------------------------------------------
@@ -55,5 +55,5 @@ def register():
         User.create(username=username, password=hashed_password)
         return redirect(url_for('login.login'))
 
-    return render_template('users/register.html')
+    return render_template('register.html')
 

@@ -34,11 +34,16 @@ def upload():
 #change.htmlのエンドポイント------------------------------------------------------------------------------------------------------
 @change_bp.route('/<user_name>')
 def change(user_name):
-    #Historyデータの抽出
+    # ページ番号を取得
+    page = request.args.get('page', 1, type=int)
+    # 1ページあたりの履歴数
+    per_page = 10
+    # 現在のユーザーの履歴を取得
     user_id = session['user_id']
     user = User.get_by_id(user_id)
-    histories = History.select().where(History.user == user)
-    return render_template('change.html',file_exists=False,  histories = histories, user_name = user_name)
+    total_histories = History.select().where(History.user == user).count()
+    histories = History.select().where(History.user == user).order_by(History.times.desc()).paginate(page, per_page)
+    return render_template('change.html', histories=histories, user_name=user_name, page=page, total_pages=(total_histories // per_page) + 1)
 
 #画像変換ようのエンドポイント------------------------------------------------------------------------------------------------------
 @change_bp.route('/conv',  methods=['POST'])
@@ -48,6 +53,7 @@ def conv():
     mosic = MosaicCov()
     input_file_name = "static/img.png"
     output_file_name = "static/output.png"
+    conv_message = ""  # デフォルト値を設定
     # `select` タグで選択された値を取得
     selected_value = request.form.get('selected_option')
     if selected_value=="":
@@ -102,14 +108,15 @@ def conv():
     )
 
     #Historyデータの抽出
-    #histories = History.select()
-    histories = History.select().where(History.user == user)
+    histories = History.select().where(History.user == user).order_by(History.times.desc()).paginate(1, 10)
     print(f"his={histories}")
     return render_template('change.html', 
                            file_exists=file_exists, 
                            message=conv_message, 
                            histories = histories, 
-                           user_name = session['user_name'])
+                           user_name = session['user_name'],
+                           page=1,
+                           total_pages=(History.select().where(History.user == user).count() // 10) + 1)
 
 
 #変換画像ダウンロード用のエンドポイント------------------------------------------------------------------------------------------------------
@@ -121,12 +128,4 @@ def download():
     else:
         return "変換された画像が見つかりません。", 404
 
-# 画像を投稿するエンドポイント
-@change_bp.route('/post_image/<int:history_id>', methods=['POST'])
-def post_image(history_id):
-    history = History.get(History.id == history_id)
-    history.is_posted = True
-    history.save()
-    
-    return redirect(url_for('change.display_images'))
 
