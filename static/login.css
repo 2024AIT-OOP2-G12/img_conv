@@ -55,9 +55,7 @@ h1 {
     background-color: #3b5998;
     color: white;
     border: none;
-
     border-radius: 10px;
-
     cursor: pointer;
     transition: background-color 0.3s;
 }
