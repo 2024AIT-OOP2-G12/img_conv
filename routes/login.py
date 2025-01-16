@@ -4,6 +4,7 @@ from models import User
 
 # Blueprintの作成
 login_bp = Blueprint('login', __name__, url_prefix='/login')
+del_user_bp = Blueprint('delete', __name__, url_prefix='/delete')
 
 #ログイン用------------------------------------------------------------------------------------------------------
 @login_bp.route('/', methods = ['GET', 'POST'])

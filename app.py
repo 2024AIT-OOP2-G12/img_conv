@@ -17,12 +17,6 @@ for blueprint in blueprints:
 def index():
     return render_template('login.html')
 
-#user管理画面------------------------------------------------------------------------------------------------------
-@app.route('/user', methods=['GET'])
-def user():
-    users = User.select()
-    return render_template('user_manage.html', users=users)
-
 
 if __name__ == '__main__':
     app.run(debug=True,port=8080)
