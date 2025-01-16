@@ -26,7 +26,7 @@
 
     <main>
         <div class="comparison-container">
-            
+
             <div class="comparison-item">
                 <p>変換前</p>
                 <img src="{{ url_for('static', filename = 'img.png')}}" class="comparison-img">
@@ -64,12 +64,13 @@
                         <option value="9">クレヨン</option>
                         <option value="10">ノイズ処理</option>
                         <option value="11">ヒートマップ</option>
+                        <option value="12">渦巻き処理</option>
                     </select>
                     <!-- モザイク強度入力 -->
-
                     <div id="mosaic-strength-container" style="display: none;">
                         <label for="mosaic-strength">モザイク強度</label>
-                        <input type="number" id="mosaic-strength" name="mosaic_strength" min="1" value="10" required>
+                        <input type="number" id="mosaic-strength" name="mosaic_strength" min="1" max="100" value="10"
+                            required>
                     </div>
                     <!-- スタンプの設定入力 -->
                     <div id="stamp-options" style="display: none;">
@@ -90,6 +91,12 @@
                         <label for="stamp-y">Y座標:</label>
                         <input type="number" id="stamp-y" name="stamp_y" value="50" required>
                     </div>
+                    <!-- 渦巻き強度入力 -->
+                    <div id="swirl-strength-container" style="display: none;">
+                        <label for="swirl-strength">渦巻き強度</label>
+                        <input type="number" id="swirl-strength" name="swirl_strength" min="1" max="50" value="10"
+                            required>
+                    </div>
 
                     <button>変換</button>
 
@@ -100,17 +107,25 @@
                     const transformMethod = document.getElementById('transform-method');
                     const mosaicStrengthContainer = document.getElementById('mosaic-strength-container');
                     const stampOptions = document.getElementById('stamp-options');
+                    const swirlStrengthContainer = document.getElementById('swirl-strength-container');
 
                     transformMethod.addEventListener('change', function () {
                         if (transformMethod.value === '2') {
                             mosaicStrengthContainer.style.display = 'block';
                             stampOptions.style.display = 'none';
+                            swirlStrengthContainer.style.display = 'none';
                         } else if (transformMethod.value === '8') {
                             stampOptions.style.display = 'block';
                             mosaicStrengthContainer.style.display = 'none';
+                            swirlStrengthContainer.style.display = 'none';
+                        } else if (transformMethod.value === '12') {
+                            swirlStrengthContainer.style.display = 'block';
+                            mosaicStrengthContainer.style.display = 'none';
+                            stampOptions.style.display = 'none';
                         } else {
                             mosaicStrengthContainer.style.display = 'none';
                             stampOptions.style.display = 'none';
+                            swirlStrengthContainer.style.display = 'none';
                         }
                     });
 
@@ -134,15 +149,15 @@
                     });
                 </script>
 
-                
+
                 <!-- メッセージ表示 -->
                 {% if message %}
                 <div class="message">
                     <p>{{ message }}</p>
                 </div>
                 {% endif %}
-            
-                
+
+
                 <!--ダウンロード-->
                 <form action="/change/download" class="download-form" method="POST">
                     <button>保存</button>
@@ -172,7 +187,8 @@
                 {% endif %}
                 <!-- ページ番号 -->
                 {% for p in range(1, total_pages + 1) %}
-                <a href="{{ url_for('change.change', user_name=user_name, page=p) }}" {% if p == page %}class="active"{% endif %}>{{ p }}</a>
+                <a href="{{ url_for('change.change', user_name=user_name, page=p) }}" {% if p==page %}class="active" {%
+                    endif %}>{{ p }}</a>
                 {% endfor %}
                 <!-- 次へボタン -->
                 {% if total_pages > page %}

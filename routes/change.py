@@ -14,6 +14,7 @@ from routes.convert2crayon_style import convert_to_crayon_style
 from routes.stamp import stamp
 from routes.add_noise import add_noise
 from routes.heatmap import heatmap
+from routes.swirl import SwirlCov
 
 
 # Blueprintの作成
@@ -57,6 +58,7 @@ def conv():
     nega = negaposi()
     mosic = MosaicCov()
     stamp_instance = stamp()
+    swirl = SwirlCov()
     input_file_name = "static/img.png"
     output_file_name = "static/output.png"
     # `select` タグで選択された値を取得
@@ -69,8 +71,8 @@ def conv():
     elif selected_value == "2":
         # モザイク処理の強度取得
         mosaic_strength = request.form.get('mosaic_strength', type=int)
-        if mosaic_strength is None or mosaic_strength < 1:
-            return "モザイクの強度は1以上にしてください。", 400
+        if mosaic_strength is None or mosaic_strength < 1 or mosaic_strength > 100:
+            return "モザイクの強度は1以上100以下にしてください。", 400
         mosic.load_image()
         mosic.set_strength(mosaic_strength)
         mosic_img = mosic.mosaic()
@@ -110,6 +112,15 @@ def conv():
     elif selected_value == "11":
         heatmap()
         conv_message = "アップロードした画像をサーモグラフィ風の画像に変換する"
+    elif selected_value == "12":
+        swirl_strength = request.form.get('swirl_strength', type=int)
+        if swirl_strength is None or swirl_strength < 1 or swirl_strength > 50:
+            return "渦巻きの強度は1以上50以下にしてください。", 400
+        swirl.load_image()
+        swirl.set_strength(swirl_strength)
+        swirl_img = swirl.swirl()
+        swirl.save_image(swirl_img)
+        conv_message = "アップロードした画像に渦巻き処理を施す"
 
     #change.html内で変換された画像とメッセージが表示されるようにする
     output_path = os.path.join('static', 'output.png')
