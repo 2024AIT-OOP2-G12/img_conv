@@ -11,10 +11,10 @@
     <h1>新規登録</h1>
     <form action="{{ url_for('login.register') }}" method="POST">
         <label for="username" class="label-large">ユーザー名:</label>
-        <input class="input-button" type="text" id="username" name="username" required>
+        <input class="input-button" type="text" id="username" name="username" placeholder="username" required>
         <br>
         <label for="password" class="label-large">パスワード:</label>
-        <input class="input-button form-group" type="password" id="password" name="password" required>
+        <input class="input-button form-group" type="password" id="password" name="password" placeholder="password" required>
         <br>
         <button type="submit" class="login-button">登録</button>
     </form>
